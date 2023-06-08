@@ -2,7 +2,12 @@ import { createServerData$ } from "solid-start/server";
 
 export default function Home() {
   const ipAddress = createServerData$((_, event) => {
-    return event;
+    const headers: Record<string, string> = {};
+    for (const [k, v] of event.request.headers.entries()) {
+      headers[k] = v;
+    }
+
+    return headers;
   });
 
   return (
